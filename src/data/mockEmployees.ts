@@ -1,0 +1,58 @@
+import { Employee } from "@/types/insider-threat";
+
+export const mockEmployees: Employee[] = [
+  {
+    id: "emp-001",
+    name: "Amara Okafor",
+    department: "Security Operations",
+    role: "Threat Analyst",
+    location: "Lagos",
+    riskLevel: "high",
+    clearance: "privileged",
+  },
+  {
+    id: "emp-002",
+    name: "Daniel Brooks",
+    department: "Finance",
+    role: "Procurement Lead",
+    location: "Austin",
+    riskLevel: "medium",
+    clearance: "elevated",
+  },
+  {
+    id: "emp-003",
+    name: "Priya Raman",
+    department: "Engineering",
+    role: "Platform Engineer",
+    location: "Bengaluru",
+    riskLevel: "low",
+    clearance: "privileged",
+  },
+  {
+    id: "emp-004",
+    name: "Noah Bennett",
+    department: "Human Resources",
+    role: "HR Business Partner",
+    location: "Chicago",
+    riskLevel: "medium",
+    clearance: "standard",
+  },
+  {
+    id: "emp-005",
+    name: "Ifeanyi Obi",
+    department: "Research",
+    role: "Data Scientist",
+    location: "Abuja",
+    riskLevel: "high",
+    clearance: "privileged",
+  },
+  {
+    id: "emp-006",
+    name: "Sofia Martinez",
+    department: "Legal",
+    role: "Compliance Counsel",
+    location: "Madrid",
+    riskLevel: "low",
+    clearance: "elevated",
+  },
+];
