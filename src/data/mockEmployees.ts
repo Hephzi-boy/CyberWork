@@ -3,7 +3,7 @@ import { Employee } from "@/types/insider-threat";
 export const mockEmployees: Employee[] = [
   {
     id: "emp-001",
-    name: "Amara Okafor",
+    name: "Gbadebo Faidat Adeola",
     department: "Security Operations",
     role: "Threat Analyst",
     location: "Lagos",
@@ -12,7 +12,7 @@ export const mockEmployees: Employee[] = [
   },
   {
     id: "emp-002",
-    name: "Daniel Brooks",
+    name: "Efunsanwo Abisola Deborah",
     department: "Finance",
     role: "Procurement Lead",
     location: "Austin",
@@ -21,7 +21,7 @@ export const mockEmployees: Employee[] = [
   },
   {
     id: "emp-003",
-    name: "Priya Raman",
+    name: "Salihu Aishat Chioma",
     department: "Engineering",
     role: "Platform Engineer",
     location: "Bengaluru",
@@ -30,7 +30,7 @@ export const mockEmployees: Employee[] = [
   },
   {
     id: "emp-004",
-    name: "Noah Bennett",
+    name: "Oredugba Oluwadamilare Elijah",
     department: "Human Resources",
     role: "HR Business Partner",
     location: "Chicago",

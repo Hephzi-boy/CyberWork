@@ -1,4 +1,5 @@
 export const siteImages = {
+  icon: "/images/nexora-icon.svg",
   hero: "/images/intelligence-hero.svg",
   infrastructure: "/images/signal-infrastructure.svg",
   systems: "/images/predictive-systems.svg",

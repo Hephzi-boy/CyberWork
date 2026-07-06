@@ -61,7 +61,7 @@ export default function HomePage() {
       <section className="hero-banner hero-banner--home">
         <div className="hero-banner__media">
           <img
-            alt="Intelligence Lab skyline"
+            alt="Nexora Technologies skyline"
             className="hero-banner__image"
             src={siteImages.hero}
           />
@@ -71,13 +71,13 @@ export default function HomePage() {
           <div className="hero-banner__copy">
             <h1>Information before it leaks out of the building.</h1>
             <p>
-              Intelligence Lab inspects worker emails, chats, calls,
+              Nexora Technologies inspects worker emails, chats, calls,
               activity trails, transaction history, and wallet movement signals to surface
               possible insider leaks before sensitive data or funds leave the company.
             </p>
             <div className="hero-banner__actions">
               <Link className="button button--primary" href="/features">
-                Explore Lab Features
+                Explore Solutions
               </Link>
               <Link className="button button--ghost" href="/contact">
                 Speak With The Team
@@ -87,7 +87,7 @@ export default function HomePage() {
           <div className="hero-banner__panel">
             <span className="eyebrow eyebrow--muted">Live Priority Signal</span>
             <strong>
-              {leadProfile?.employee.name ?? "Amara Okafor"} /{" "}
+              {leadProfile?.employee.name ?? "Gbadebo Faidat Adeola"} /{" "}
               {leadProfile?.analysis.finalRiskScore ?? 0}
             </strong>
             <p>
@@ -135,7 +135,7 @@ export default function HomePage() {
       <section className="section-shell">
         <div className="container-shell">
           <div className="section-heading section-heading--center">
-            <span className="eyebrow">What The Lab Delivers</span>
+            <span className="eyebrow">What Nexora Delivers</span>
             <h2>Built to identify weak signals before they become operational incidents.</h2>
             <p>
               The intelligence model now correlates communications, access behavior, data
@@ -184,7 +184,7 @@ export default function HomePage() {
             <span className="eyebrow">Operational Reach</span>
             <h2>One intelligence layer across research, oversight, and response.</h2>
             <p>
-              Intelligence Lab turns fragmented evidence from communications,
+              Nexora Technologies turns fragmented evidence from communications,
               access logs, and transaction controls into one operating picture. The
               strongest current pressure zone is{" "}
               <strong>{highestDepartment?.department ?? "Security Operations"}</strong>,
@@ -218,14 +218,14 @@ export default function HomePage() {
       </section>
 
       <section className="section-shell section-shell--soft">
-        <div className="container-shell">
-          <div className="section-heading">
-            <div>
-              <span className="eyebrow">Latest Intelligence</span>
-              <h2>Signals from the active lab environment.</h2>
-            </div>
-            <Link className="text-link" href="/features">
-              Open full capabilities
+          <div className="container-shell">
+            <div className="section-heading">
+              <div>
+                <span className="eyebrow">Latest Intelligence</span>
+                <h2>Signals from the active Nexora environment.</h2>
+              </div>
+              <Link className="text-link" href="/features">
+                Open full capabilities
             </Link>
           </div>
 

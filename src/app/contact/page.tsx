@@ -34,10 +34,10 @@ export default function ContactPage() {
     <main className="company-page">
       <section className="hero-banner hero-banner--compact hero-banner--contact">
         <div className="hero-banner__veil hero-banner__veil--flat" />
-        <div className="hero-banner__content container-shell">
+          <div className="hero-banner__content container-shell">
           <div className="hero-banner__copy hero-banner__copy--wide">
             <span className="eyebrow">Get In Touch</span>
-            <h1>Connect with the team behind the intelligence platform and response model.</h1>
+            <h1>Connect with the team behind the Nexora platform and response model.</h1>
             <p>
               Whether the discussion is technical, strategic, or operational, the contact
               experience now matches the rest of the company-grade redesign.
@@ -59,7 +59,7 @@ export default function ContactPage() {
         <div className="container-shell contact-layout">
           <div className="contact-form-card">
             <span className="eyebrow eyebrow--dark">Inquiry Submission</span>
-            <h2>Request a conversation with the lab team.</h2>
+            <h2>Request a conversation with the Nexora team.</h2>
             <form className="contact-form">
               <label>
                 Full Name
@@ -94,19 +94,19 @@ export default function ContactPage() {
                 <span className="material-symbols-outlined">breaking_news</span>
                 <h3>Media</h3>
                 <p>Corporate communications and press briefing support.</p>
-                <strong>media@pilab.global</strong>
+                <strong>media@nexora.tech</strong>
               </article>
               <article>
                 <span className="material-symbols-outlined">finance_mode</span>
                 <h3>Investors</h3>
                 <p>Institutional updates, reporting, and governance material.</p>
-                <strong>investors@pilab.global</strong>
+                <strong>investors@nexora.tech</strong>
               </article>
               <article>
                 <span className="material-symbols-outlined">lab_research</span>
                 <h3>Research</h3>
                 <p>Technical partnerships, pilots, and operating model design.</p>
-                <strong>lab@pilab.global</strong>
+                <strong>research@nexora.tech</strong>
               </article>
             </div>
           </div>
@@ -119,7 +119,7 @@ export default function ContactPage() {
                 <span>EMEA Headquarters</span>
               </div>
               <div className="contact-map-card__body">
-                <h3>Intelligence Plaza</h3>
+                <h3>Nexora Plaza</h3>
                 <p>42 Innovation Way, Canary Wharf, London E14</p>
                 <div className="contact-map-card__meta">
                   <span>{metrics.totalEmployees} live specialists</span>
