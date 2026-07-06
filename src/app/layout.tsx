@@ -6,6 +6,7 @@ import { ScrollReveal } from "@/components/insider-threat/scroll-reveal";
 import { StoreProvider } from "@/store/provider";
 
 import "./globals.css";
+import "./nexora-brand.css";
 
 const bodyFont = Manrope({
   subsets: ["latin"],
@@ -24,9 +25,12 @@ const monoFont = IBM_Plex_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Intelligence Lab",
+  title: "Nexora Technologies",
   description:
-    "Corporate-style intelligence lab website built around live operational signals, research capabilities, and enterprise-grade analytics.",
+    "Nexora Technologies is a corporate-style digital experience built around live operational signals, research capabilities, and executive-grade analytics.",
+  icons: {
+    icon: "/images/nexora-icon.svg",
+  },
 };
 
 export default function RootLayout({

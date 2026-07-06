@@ -11,7 +11,7 @@ const milestones = [
   {
     year: "2018",
     title: "Foundational Research Program",
-    text: "The lab was structured to combine human review with measurable telemetry rather than rely on opaque scoring alone.",
+    text: "Nexora Technologies was structured to combine human review with measurable telemetry rather than rely on opaque scoring alone.",
   },
   {
     year: "2021",
@@ -26,13 +26,36 @@ const milestones = [
   {
     year: "Today",
     title: "Executive-Grade Platform",
-    text: "The current redesign positions the lab as a polished company product while retaining the original analytical core.",
+    text: "The current redesign positions Nexora Technologies as a polished company product while retaining the original analytical core.",
+  },
+];
+
+const projects = [
+  {
+    title: "Project Halo",
+    owner: "Gbadebo Faidat Adeola",
+    text: "Security operations coverage for high-signal access review and escalation readiness.",
+  },
+  {
+    title: "Project Meridian",
+    owner: "Efunsanwo Abisola Deborah",
+    text: "Finance visibility focused on approvals, transfers, and transaction integrity.",
+  },
+  {
+    title: "Project Pulse",
+    owner: "Salihu Aishat Chioma",
+    text: "Engineering telemetry for release pressure, response timing, and workflow drift.",
+  },
+  {
+    title: "Project Atlas",
+    owner: "Oredugba Oluwadamilare Elijah",
+    text: "People and governance oversight built around policy drift and review health.",
   },
 ];
 
 export default function AboutPage() {
   const metrics = useAppSelector(selectDashboardMetrics);
-  const people = useAppSelector(selectOverviewEmployees).slice(0, 4);
+  const people = useAppSelector(selectOverviewEmployees).slice(0, 6);
 
   return (
     <main className="company-page">
@@ -41,12 +64,12 @@ export default function AboutPage() {
           <img alt="" className="hero-banner__image hero-banner__image--desaturated" src={siteImages.hero} />
           <div className="hero-banner__veil hero-banner__veil--dense" />
         </div>
-        <div className="hero-banner__content container-shell">
+          <div className="hero-banner__content container-shell">
           <div className="hero-banner__copy hero-banner__copy--wide">
-            <span className="eyebrow">About Our Lab</span>
+            <span className="eyebrow">About Nexora Technologies</span>
             <h1>Precision is the discipline. Trusted intelligence is the outcome.</h1>
             <p>
-              Intelligence Lab brings research discipline, behavioral analytics,
+              Nexora Technologies brings research discipline, behavioral analytics,
               and operational design into one coherent company story.
             </p>
           </div>
@@ -123,6 +146,31 @@ export default function AboutPage() {
 
       <section className="section-shell">
         <div className="container-shell">
+          <div className="section-heading">
+            <div>
+              <span className="eyebrow">Projects In Motion</span>
+              <h2>The requested team names now also appear as active project ownership.</h2>
+            </div>
+          </div>
+
+          <div className="insights-grid">
+            {projects.map((project) => (
+              <article key={project.title} className="insight-article">
+                <span className="insight-article__meta">Flagship program</span>
+                <h3>{project.title}</h3>
+                <p>{project.text}</p>
+                <div className="insight-article__footer">
+                  <span className="severity-tag severity-tag--low">owner</span>
+                  <span>{project.owner}</span>
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="section-shell">
+        <div className="container-shell">
           <div className="section-heading section-heading--center">
             <span className="eyebrow">A Legacy Of Breakthroughs</span>
             <h2>Structured like a credible company platform, not just a prototype interface.</h2>
@@ -148,7 +196,7 @@ export default function AboutPage() {
         <div className="container-shell cta-band__inner">
           <div>
             <span className="eyebrow">Next Step</span>
-            <h2>Position the lab like an enterprise product teams can trust immediately.</h2>
+            <h2>Position Nexora Technologies like an enterprise product teams can trust immediately.</h2>
           </div>
           <Link className="button button--primary" href="/contact">
             Partner With Us

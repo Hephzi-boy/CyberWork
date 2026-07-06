@@ -47,9 +47,9 @@ export default function FeaturesPage() {
         <div className="hero-banner__content container-shell">
           <div className="hero-banner__copy">
             <span className="eyebrow">Advanced Research Infrastructure</span>
-            <h1>Technical lab capabilities built around real monitoring and response signals.</h1>
+            <h1>Technical platform capabilities built around real monitoring and response signals.</h1>
             <p>
-              The platform inspects worker emails, chats, calls, transactions, and file
+              Nexora Technologies inspects worker emails, chats, calls, transactions, and file
               movement signals to detect possible insider leaks and recommend board action.
             </p>
             <div className="hero-banner__actions">
@@ -61,7 +61,7 @@ export default function FeaturesPage() {
                 triggerLabel="Flag A Worker"
               />
               <Link className="button button--ghost" href="/about">
-                Meet The Lab
+                Meet Nexora
               </Link>
             </div>
           </div>
@@ -74,7 +74,7 @@ export default function FeaturesPage() {
             <div className="section-heading">
               <div>
                 <span className="eyebrow">Flagged Case Review</span>
-                <h2>
+              <h2>
                   {employee?.name ?? "Selected worker"} is the current reviewed
                   escalation profile.
                 </h2>
@@ -266,7 +266,7 @@ export default function FeaturesPage() {
             <span className="eyebrow">The Hub Of Global Intelligence</span>
             <h2>From fragmented evidence to one dependable operating picture.</h2>
             <p>
-              The current lab dataset tracks {metrics.totalEmployees} specialists,
+              The current Nexora dataset tracks {metrics.totalEmployees} specialists,
               correlates {metrics.unusualActivityAlerts} unusual communication, transfer,
               and finance alerts, and continuously reprioritizes high-sensitivity monitoring
               paths for the board and security teams.
@@ -317,7 +317,7 @@ export default function FeaturesPage() {
               <h2>Predictive analytics</h2>
               <p>
                 The selected case for{" "}
-                <strong>{employee?.name ?? "Amara Okafor"}</strong> currently reflects{" "}
+                <strong>{employee?.name ?? "Gbadebo Faidat Adeola"}</strong> currently reflects{" "}
                 <strong>{analysis?.afterHoursAccessCount ?? 0}</strong> off-hours sessions
                 and <strong>{analysis?.policyViolationCount ?? 0}</strong> policy exceptions,
                 plus <strong>{analysis?.externalEmailCount ?? 0}</strong> suspicious external
@@ -431,9 +431,9 @@ export default function FeaturesPage() {
       </section>
 
       <section className="cta-band cta-band--yellow">
-        <div className="container-shell cta-band__inner cta-band__inner--stacked">
+          <div className="container-shell cta-band__inner cta-band__inner--stacked">
           <div>
-            <span className="eyebrow eyebrow--dark">Experience Intelligence Lab</span>
+            <span className="eyebrow eyebrow--dark">Experience Nexora Technologies</span>
             <h2>Use the current model as the foundation for a stronger executive-facing platform.</h2>
           </div>
           <Link className="button button--dark" href="/contact">

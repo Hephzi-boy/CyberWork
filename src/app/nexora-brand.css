@@ -1,0 +1,105 @@
+.site-brand {
+  flex: 0 0 auto;
+  gap: 0;
+  min-width: 7.65rem;
+  line-height: 0;
+  position: relative;
+  z-index: 2;
+}
+
+.site-brand__logo-shell {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 7.65rem;
+  height: 6.25rem;
+  padding: 0;
+  overflow: visible;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.site-brand__logo-svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  flex: 0 0 auto;
+  opacity: 1;
+  visibility: visible;
+  filter: drop-shadow(0 0 14px rgba(0, 163, 255, 0.34));
+}
+
+.site-brand--footer {
+  min-width: 6.4rem;
+}
+
+.site-brand--footer .site-brand__logo-shell {
+  width: 6.5rem;
+  height: 5.35rem;
+}
+
+@media (max-width: 840px) {
+  .site-brand {
+    min-width: 5.9rem;
+  }
+
+  .site-brand__logo-shell {
+    width: 5.95rem;
+    height: 4.9rem;
+  }
+
+  .site-header__inner {
+    min-height: 7.35rem;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: center;
+    gap: 0.45rem;
+    padding: 0.45rem 0 0.7rem;
+  }
+
+  .site-header__brand-group {
+    width: 100%;
+    justify-content: center;
+    gap: 0;
+  }
+
+  .mobile-nav {
+    position: static;
+    inset: auto;
+    display: flex;
+    width: min(100%, 24rem);
+    margin: -0.55rem auto 0;
+    padding: 0.32rem;
+    justify-content: center;
+    border: 1px solid rgba(125, 159, 255, 0.16);
+    border-radius: 999px;
+    background: rgba(3, 9, 25, 0.9);
+    box-shadow: 0 16px 34px rgba(0, 0, 0, 0.34);
+    backdrop-filter: blur(16px);
+  }
+
+  .mobile-nav__link {
+    flex: 1 1 0;
+    min-width: 0;
+    padding: 0.7rem 0.45rem;
+    text-align: center;
+    font-size: 0.64rem;
+    letter-spacing: 0.15em;
+  }
+
+  .mobile-nav__link.is-active {
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.12);
+  }
+
+  .company-page {
+    padding-top: 7.35rem;
+    padding-bottom: 0;
+  }
+
+  .hero-banner__content {
+    padding-top: 4.9rem;
+  }
+}

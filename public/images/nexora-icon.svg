@@ -1,0 +1,41 @@
+<svg width="188" height="154" viewBox="0 0 188 154" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="nexora-blue" x1="28" y1="16" x2="148" y2="139" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#08B8FF"/>
+      <stop offset="0.42" stop-color="#0092FF"/>
+      <stop offset="1" stop-color="#7047FF"/>
+    </linearGradient>
+    <linearGradient id="nexora-purple" x1="80" y1="31" x2="154" y2="129" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#009EFF"/>
+      <stop offset="1" stop-color="#7B35FF"/>
+    </linearGradient>
+    <radialGradient id="nexora-flare" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(96 146) scale(41 5)">
+      <stop stop-color="#00A3FF" stop-opacity="0.9"/>
+      <stop offset="1" stop-color="#00A3FF" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="soft-glow" x="-20" y="-20" width="228" height="194" color-interpolation-filters="sRGB">
+      <feGaussianBlur stdDeviation="2.6" result="blur"/>
+      <feColorMatrix in="blur" type="matrix" values="0 0 0 0 0 0 0 0 0 0.45 0 0 0 0 1 0 0 0 0.75 0"/>
+      <feBlend in="SourceGraphic" mode="screen"/>
+    </filter>
+  </defs>
+
+  <rect width="188" height="154" rx="14" fill="#020817"/>
+  <rect width="188" height="154" rx="14" fill="url(#nexora-flare)" opacity="0.7"/>
+
+  <g filter="url(#soft-glow)">
+    <path d="M32 133V23L74 62V91L48 67V117L32 133Z" fill="url(#nexora-blue)"/>
+    <path d="M48 30L140 116V139L48 53V30Z" fill="url(#nexora-blue)"/>
+    <path d="M116 79V36L132 52V116L116 101V79Z" fill="url(#nexora-purple)"/>
+    <path d="M74 62L156 139H132L74 85V62Z" fill="url(#nexora-purple)"/>
+
+    <path d="M25 125V141" stroke="#049EFF" stroke-width="4" stroke-linecap="round"/>
+    <circle cx="25" cy="145" r="6" fill="#020817" stroke="#049EFF" stroke-width="4"/>
+
+    <path d="M157 36V55" stroke="#049EFF" stroke-width="4" stroke-linecap="round"/>
+    <circle cx="157" cy="31" r="6" fill="#020817" stroke="#049EFF" stroke-width="4"/>
+
+    <path d="M33 23V45" stroke="#049EFF" stroke-width="4" stroke-linecap="round"/>
+    <circle cx="33" cy="18" r="4" fill="#020817" stroke="#049EFF" stroke-width="3"/>
+  </g>
+</svg>
