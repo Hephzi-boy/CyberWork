@@ -396,11 +396,21 @@ export const selectPotentialLeakAlerts = createSelector(
           return null;
         }
 
+        const hasLeakSignal =
+          analysis.watchVectors.length > 0 ||
+          signal.externalChatDisclosureCount >= 2 ||
+          signal.externalEmailCount >= 1 ||
+          signal.suspiciousAttachmentCount >= 1 ||
+          signal.transactionHistoryExportCount >= 1 ||
+          signal.walletTransferAttempts >= 1;
+
         const isLeakCandidate =
-          analysis.finalRiskScore >= 55 &&
-          (analysis.watchVectors.length > 0 ||
-            signal.transactionHistoryExportCount >= 1 ||
-            signal.walletTransferAttempts >= 1);
+          (analysis.finalRiskScore >= 50 && hasLeakSignal) ||
+          (analysis.finalRiskScore >= 34 &&
+            (signal.externalChatDisclosureCount >= 2 ||
+              signal.externalEmailCount >= 2 ||
+              signal.suspiciousAttachmentCount >= 1 ||
+              signal.transactionHistoryExportCount >= 1));
 
         if (!isLeakCandidate) {
           return null;
@@ -440,12 +450,14 @@ export const selectPotentialLeakAlerts = createSelector(
         ): item is NonNullable<typeof item> => Boolean(item),
       );
 
-    return automaticAlerts.sort((left, right) => {
-      if (right.analysis.finalRiskScore !== left.analysis.finalRiskScore) {
-        return right.analysis.finalRiskScore - left.analysis.finalRiskScore;
-      }
+    return automaticAlerts
+      .sort((left, right) => {
+        if (right.analysis.finalRiskScore !== left.analysis.finalRiskScore) {
+          return right.analysis.finalRiskScore - left.analysis.finalRiskScore;
+        }
 
-      return right.timestamp.localeCompare(left.timestamp);
-    });
+        return right.timestamp.localeCompare(left.timestamp);
+      })
+      .slice(0, 4);
   },
 );

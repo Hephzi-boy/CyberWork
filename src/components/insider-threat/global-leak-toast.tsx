@@ -8,28 +8,17 @@ import { selectPotentialLeakAlerts } from "@/store/slices/analysisSlice";
 import { setSelectedEmployee } from "@/store/slices/employeeSlice";
 import { dismissLeakAlert } from "@/store/slices/uiSlice";
 
-const summarizeVectors = (vectors: string[]) => {
-  if (vectors.length === 0) {
-    return "suspicious leak-related behavior";
-  }
-
-  if (vectors.length === 1) {
-    return vectors[0];
-  }
-
-  return `${vectors[0]} and ${vectors[1]}`;
-};
-
 export function GlobalLeakToast() {
   const router = useRouter();
   const dispatch = useAppDispatch();
   const alerts = useAppSelector(selectPotentialLeakAlerts);
   const dismissedLeakAlertIds = useAppSelector((state) => state.ui.dismissedLeakAlertIds);
   const [isVisible, setIsVisible] = useState(false);
+  const [isCollapsed, setIsCollapsed] = useState(false);
 
   const pendingAlerts = alerts.filter((alert) => !dismissedLeakAlertIds.includes(alert.id));
   const activeAlert = pendingAlerts[0] ?? null;
-  const queuedAlertCount = Math.max(pendingAlerts.length - 1, 0);
+  const pendingAlertCount = pendingAlerts.length;
 
   useEffect(() => {
     void router.prefetch("/features");
@@ -38,9 +27,11 @@ export function GlobalLeakToast() {
   useEffect(() => {
     if (!activeAlert) {
       setIsVisible(false);
+      setIsCollapsed(false);
       return;
     }
 
+    setIsCollapsed(false);
     setIsVisible(false);
     const timer = window.setTimeout(() => {
       setIsVisible(true);
@@ -53,19 +44,49 @@ export function GlobalLeakToast() {
     return null;
   }
 
-  const vectorSummary = summarizeVectors(activeAlert.analysis.watchVectors);
-
   const handleDismiss = () => {
-    setIsVisible(false);
-    dispatch(dismissLeakAlert(activeAlert.id));
+    setIsCollapsed(true);
+    setIsVisible(true);
   };
 
   const handleReview = () => {
     dispatch(setSelectedEmployee(activeAlert.employee.id));
     dispatch(dismissLeakAlert(activeAlert.id));
+    setIsCollapsed(false);
     setIsVisible(false);
     router.push("/features#case-review");
   };
+
+  const handleExpand = () => {
+    setIsCollapsed(false);
+    setIsVisible(true);
+  };
+
+  if (isCollapsed) {
+    return (
+      <aside
+        aria-live="polite"
+        className={
+          isVisible
+            ? "global-toast global-toast--visible global-toast--collapsed"
+            : "global-toast global-toast--collapsed"
+        }
+        role="status"
+      >
+        <button
+          aria-label={`Open ${pendingAlertCount} flagged notification${pendingAlertCount === 1 ? "" : "s"}`}
+          className="global-toast__collapsed-trigger"
+          onClick={handleExpand}
+          type="button"
+        >
+          <span className="global-toast__badge global-toast__badge--small">
+            <span className="material-symbols-outlined">notifications_active</span>
+          </span>
+          <span className="global-toast__count">{pendingAlertCount}</span>
+        </button>
+      </aside>
+    );
+  }
 
   return (
     <aside
@@ -74,40 +95,34 @@ export function GlobalLeakToast() {
       role="status"
     >
       <div className="global-toast__surface">
-        <div className="global-toast__badge">
+        <div className="global-toast__badge global-toast__badge--small">
           <span className="material-symbols-outlined">notifications_active</span>
         </div>
         <div className="global-toast__copy">
-          <span className="global-toast__eyebrow">Automated Board Alert</span>
           <strong>You have a new notification.</strong>
           <p>
-            {activeAlert.employee.name} was flagged for suspicious {vectorSummary}. Open the
-            case in Solutions to review the incident safely.
+            {pendingAlertCount} flagged worker{pendingAlertCount === 1 ? "" : "s"} waiting for
+            review.
           </p>
         </div>
-        <button
-          className="global-toast__button global-toast__button--solid global-toast__button--wide"
-          onClick={handleReview}
-          type="button"
-        >
-          Open flagged case
-        </button>
       </div>
       <div className="global-toast__meta">
-        <span className="global-toast__queue">
-          {queuedAlertCount > 0
-            ? `${queuedAlertCount} more automated alert${
-                queuedAlertCount === 1 ? "" : "s"
-              } queued after this review.`
-            : "The flagged case opens directly in the Solutions review panel."}
-        </span>
-        <button
-          className="global-toast__button global-toast__button--quiet"
-          onClick={handleDismiss}
-          type="button"
-        >
-          Dismiss
-        </button>
+        <div className="global-toast__actions">
+          <button
+            className="global-toast__button global-toast__button--solid"
+            onClick={handleReview}
+            type="button"
+          >
+            Open case
+          </button>
+          <button
+            className="global-toast__button global-toast__button--quiet"
+            onClick={handleDismiss}
+            type="button"
+          >
+            Dismiss
+          </button>
+        </div>
       </div>
     </aside>
   );
