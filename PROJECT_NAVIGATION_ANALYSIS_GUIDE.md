@@ -52,21 +52,6 @@ New alert flow:
    - allows the user to review the case
    - allows the user to dismiss the alert
 
-6. Manual flag flow
-   The website now also allows you to personally raise a leak alert from the UI without editing code.
-
-   How it works:
-   - use the `Flag Employee` action in the shared header
-   - choose the employee
-   - choose the alert type
-   - enter or adjust the incident details
-   - submit the manual flag
-
-   What happens next:
-   - the manual flag enters the same top-toast flow as automatic detections
-   - the employee is treated as a high-priority leak alert
-   - the user can still review or dismiss the toast normally
-
 How the data still works:
 
 - The website is still not taking live user-entered threat data.
@@ -79,12 +64,9 @@ Main data sources:
 - behavior, sentiment, and event data: `src/data/mockSignals.ts`
 - analysis scoring logic: `src/store/slices/analysisSlice.ts`
 - toast dismissal state: `src/store/slices/uiSlice.ts`
-- manual flag modal: `src/components/insider-threat/manual-flag-control.tsx`
 
 Important implementation note:
 
 - The toast is not hardcoded only in the page markup.
-- It is driven by both:
-  automatic leak-style events from the event feed
-  manual leak alerts submitted from the UI
+- It is driven by automatic leak-style events from the event feed.
 - The alert is rendered globally through the shared site frame, so it can appear across the website.

@@ -4,7 +4,7 @@ export function RiskMeter({ score }: { score: number }) {
       <div className="panel-heading">
         <div>
           <span className="caps-label muted">Composite Threat Score</span>
-          <h2>Risk Meter</h2>
+          <h2><span className="material-symbols-outlined">speed</span> Risk Meter</h2>
         </div>
         <strong className="risk-meter-card__score">{score}</strong>
       </div>

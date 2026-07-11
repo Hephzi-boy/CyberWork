@@ -1,18 +1,12 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
-import {
-  ComparisonMode,
-  DateRange,
-  ManualLeakAlert,
-  SortOption,
-} from "@/types/insider-threat";
+import { ComparisonMode, DateRange, SortOption } from "@/types/insider-threat";
 
 type UiState = {
   dateRange: DateRange;
   sortBy: SortOption;
   comparisonMode: ComparisonMode;
   dismissedLeakAlertIds: string[];
-  manualLeakAlerts: ManualLeakAlert[];
 };
 
 const initialState: UiState = {
@@ -20,7 +14,6 @@ const initialState: UiState = {
   sortBy: "riskScore",
   comparisonMode: "individual",
   dismissedLeakAlertIds: [],
-  manualLeakAlerts: [],
 };
 
 const uiSlice = createSlice({
@@ -41,9 +34,6 @@ const uiSlice = createSlice({
         state.dismissedLeakAlertIds.push(action.payload);
       }
     },
-    addManualLeakAlert(state, action: PayloadAction<ManualLeakAlert>) {
-      state.manualLeakAlerts.unshift(action.payload);
-    },
   },
 });
 
@@ -52,6 +42,5 @@ export const {
   setSortBy,
   setComparisonMode,
   dismissLeakAlert,
-  addManualLeakAlert,
 } = uiSlice.actions;
 export const uiReducer = uiSlice.reducer;

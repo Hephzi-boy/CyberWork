@@ -10,7 +10,9 @@ export function RecommendationList({ items }: { items: string[] }) {
       <div className="recommendation-stack">
         {items.map((item, index) => (
           <article key={item} className="recommendation-entry">
-            <span>{String(index + 1).padStart(2, "0")}</span>
+            <span className="material-symbols-outlined">
+              {index === 0 ? "admin_panel_settings" : index === 1 ? "visibility" : "groups"}
+            </span>
             <p>{item}</p>
           </article>
         ))}

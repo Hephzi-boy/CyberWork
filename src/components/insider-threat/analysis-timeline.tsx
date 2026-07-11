@@ -12,7 +12,9 @@ export function AnalysisTimeline({ events }: { events: SuspiciousEvent[] }) {
       <div className="timeline-list">
         {events.map((event) => (
           <article key={event.id} className="timeline-event">
-            <div className={`timeline-event__dot timeline-event__dot--${event.severity}`} />
+            <div className={`timeline-event__dot timeline-event__dot--${event.severity}`}>
+              <span className="material-symbols-outlined">bolt</span>
+            </div>
             <div className="timeline-event__body">
               <div className="timeline-event__head">
                 <strong>{event.title}</strong>

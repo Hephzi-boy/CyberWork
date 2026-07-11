@@ -46,7 +46,10 @@ export function EmployeeCard({ employee, analysis, sentiment }: Props) {
     <button className="watch-card evidence-card" onClick={handleOpen} type="button">
       <div className="watch-card__head">
         <div>
-          <h4>SUBJECT {employee.id.replace("emp-", "").toUpperCase()}</h4>
+          <div className="visual-card-heading visual-card-heading--compact">
+            <span className="material-symbols-outlined visual-inline-icon">person_search</span>
+            <h4>SUBJECT {employee.id.replace("emp-", "").toUpperCase()}</h4>
+          </div>
           <p>{employee.role.replace(/\s+/g, "_").toUpperCase()}</p>
         </div>
         <span className={getThreatClassName(analysis.riskLevel)}>
@@ -69,9 +72,9 @@ export function EmployeeCard({ employee, analysis, sentiment }: Props) {
           <span>{analysis.finalRiskScore}%</span>
         </div>
         <div className="watch-card__detail-grid">
-          <span>Sentiment {analysis.sentimentScore}/100</span>
-          <span>Anomaly {analysis.anomalyScore}/100</span>
-          <span>{sentiment?.negativeKeywordHits ?? 0} keyword hits</span>
+          <span><span className="material-symbols-outlined">sentiment_satisfied</span> {analysis.sentimentScore}/100</span>
+          <span><span className="material-symbols-outlined">psychology</span> {analysis.anomalyScore}/100</span>
+          <span><span className="material-symbols-outlined">sell</span> {sentiment?.negativeKeywordHits ?? 0}</span>
         </div>
       </div>
 

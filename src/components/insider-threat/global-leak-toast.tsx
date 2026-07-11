@@ -27,8 +27,13 @@ export function GlobalLeakToast() {
   const dismissedLeakAlertIds = useAppSelector((state) => state.ui.dismissedLeakAlertIds);
   const [isVisible, setIsVisible] = useState(false);
 
-  const activeAlert =
-    alerts.find((alert) => !dismissedLeakAlertIds.includes(alert.id)) ?? null;
+  const pendingAlerts = alerts.filter((alert) => !dismissedLeakAlertIds.includes(alert.id));
+  const activeAlert = pendingAlerts[0] ?? null;
+  const queuedAlertCount = Math.max(pendingAlerts.length - 1, 0);
+
+  useEffect(() => {
+    void router.prefetch("/features");
+  }, [router]);
 
   useEffect(() => {
     if (!activeAlert) {
@@ -42,7 +47,7 @@ export function GlobalLeakToast() {
     }, 1400);
 
     return () => window.clearTimeout(timer);
-  }, [activeAlert]);
+  }, [activeAlert?.id]);
 
   if (!activeAlert) {
     return null;
@@ -63,36 +68,47 @@ export function GlobalLeakToast() {
   };
 
   return (
-    <div
-      aria-live="assertive"
+    <aside
+      aria-live="polite"
       className={isVisible ? "global-toast global-toast--visible" : "global-toast"}
-      role="alert"
+      role="status"
     >
-      <div className="global-toast__badge">
-        <span className="material-symbols-outlined">warning</span>
-      </div>
-      <div className="global-toast__copy">
-        <span className="global-toast__eyebrow">
-          {activeAlert.source === "manual"
-            ? "Manual Leak Flag"
-            : "Automated Board Alert"}
-        </span>
-        <strong>
-          {activeAlert.employee.name} is showing suspicious {vectorSummary}.
-        </strong>
-        <p>
-          {activeAlert.detail} Current composite risk score:{" "}
-          {activeAlert.analysis.finalRiskScore}/100.
-        </p>
-      </div>
-      <div className="global-toast__actions">
-        <button className="global-toast__button global-toast__button--solid" onClick={handleReview} type="button">
-          Review Case
+      <div className="global-toast__surface">
+        <div className="global-toast__badge">
+          <span className="material-symbols-outlined">notifications_active</span>
+        </div>
+        <div className="global-toast__copy">
+          <span className="global-toast__eyebrow">Automated Board Alert</span>
+          <strong>You have a new notification.</strong>
+          <p>
+            {activeAlert.employee.name} was flagged for suspicious {vectorSummary}. Open the
+            case in Solutions to review the incident safely.
+          </p>
+        </div>
+        <button
+          className="global-toast__button global-toast__button--solid global-toast__button--wide"
+          onClick={handleReview}
+          type="button"
+        >
+          Open flagged case
         </button>
-        <button className="global-toast__button" onClick={handleDismiss} type="button">
+      </div>
+      <div className="global-toast__meta">
+        <span className="global-toast__queue">
+          {queuedAlertCount > 0
+            ? `${queuedAlertCount} more automated alert${
+                queuedAlertCount === 1 ? "" : "s"
+              } queued after this review.`
+            : "The flagged case opens directly in the Solutions review panel."}
+        </span>
+        <button
+          className="global-toast__button global-toast__button--quiet"
+          onClick={handleDismiss}
+          type="button"
+        >
           Dismiss
         </button>
       </div>
-    </div>
+    </aside>
   );
 }

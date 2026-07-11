@@ -1,8 +1,8 @@
 "use client";
 
+import { useEffect } from "react";
 import Link from "next/link";
 
-import { ManualFlagControl } from "@/components/insider-threat/manual-flag-control";
 import { siteImages } from "@/data/siteImages";
 import { useAppSelector } from "@/store/hooks";
 import {
@@ -37,6 +37,42 @@ export default function FeaturesPage() {
     maximumFractionDigits: 0,
   });
 
+  useEffect(() => {
+    if (window.location.hash !== "#case-review") {
+      return;
+    }
+
+    const timer = window.setTimeout(() => {
+      document.getElementById("case-review")?.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    }, 80);
+
+    return () => window.clearTimeout(timer);
+  }, [employee?.id]);
+
+  const leakIndicators = [
+    {
+      icon: "alternate_email",
+      label: "External email",
+      value: analysis?.externalEmailCount ?? 0,
+      note: `${analysis?.suspiciousAttachmentCount ?? 0} attachments`,
+    },
+    {
+      icon: "chat",
+      label: "Chat disclosure",
+      value: analysis?.externalChatDisclosureCount ?? 0,
+      note: `${analysis?.offPlatformCallMinutes ?? 0} call minutes`,
+    },
+    {
+      icon: "account_balance_wallet",
+      label: "Finance movement",
+      value: analysis?.walletTransferAttempts ?? 0,
+      note: `${analysis?.transactionHistoryExportCount ?? 0} exports`,
+    },
+  ];
+
   return (
     <main className="company-page">
       <section className="hero-banner hero-banner--compact hero-banner--features">
@@ -49,17 +85,19 @@ export default function FeaturesPage() {
             <span className="eyebrow">Advanced Research Infrastructure</span>
             <h1>Technical platform capabilities built around real monitoring and response signals.</h1>
             <p>
-              Nexora Technologies inspects worker emails, chats, calls, transactions, and file
-              movement signals to detect possible insider leaks and recommend board action.
+              Visual monitoring for communication, access, transaction, and file risk.
             </p>
+            <div className="visual-chip-row">
+              {["mail", "chat", "call", "account_balance", "file_upload"].map((icon) => (
+                <span className="visual-chip visual-chip--icon-only" key={icon}>
+                  <span className="material-symbols-outlined">{icon}</span>
+                </span>
+              ))}
+            </div>
             <div className="hero-banner__actions">
               <Link className="button button--primary" href="/contact">
                 Request Demo
               </Link>
-              <ManualFlagControl
-                mode="button"
-                triggerLabel="Flag A Worker"
-              />
               <Link className="button button--ghost" href="/about">
                 Meet Nexora
               </Link>
@@ -79,16 +117,12 @@ export default function FeaturesPage() {
                   escalation profile.
                 </h2>
                 <p>
-                  This section shows the exact incident being reviewed, the
-                  worker-specific communication and finance metrics, and the reasons the
-                  case is currently flagged for possible data or fund leakage.
+                  Case signal, risk metrics, leak paths, and recommended response.
                 </p>
               </div>
               {currentLeakAlert ? (
                 <span className="severity-tag severity-tag--high">
-                  {currentLeakAlert.source === "manual"
-                    ? "manual flag"
-                    : "automatic detection"}
+                  automatic detection
                 </span>
               ) : null}
             </div>
@@ -100,7 +134,7 @@ export default function FeaturesPage() {
                 <p>
                   {currentLeakAlert?.detail ??
                     timeline[0]?.detail ??
-                    "Select or flag a worker to review a detailed incident record."}
+                    "Select a worker to review a detailed incident record."}
                 </p>
                 <div className="case-review__meta">
                   <span>{currentLeakAlert?.timestamp ?? timeline[0]?.timestamp ?? "Timestamp unavailable"}</span>
@@ -110,7 +144,7 @@ export default function FeaturesPage() {
               </article>
 
               <article className="case-review__metric-card">
-                <h3>Risk Context</h3>
+                <h3><span className="material-symbols-outlined">speed</span> Risk Context</h3>
                 <div className="case-review__metric-list">
                   <div>
                     <span>Composite score</span>
@@ -140,29 +174,21 @@ export default function FeaturesPage() {
               </article>
 
               <article className="case-review__list-card">
-                <h3>Leak Path Indicators</h3>
-                <div className="case-review__stack">
-                  <p>
-                    {analysis?.externalEmailCount ?? 0} external email attempts,{" "}
-                    {analysis?.suspiciousAttachmentCount ?? 0} suspicious attachments, and{" "}
-                    {analysis?.rivalContactCount ?? 0} rival-contact interactions are under review.
-                  </p>
-                  <p>
-                    {analysis?.externalChatDisclosureCount ?? 0} chat disclosure attempts and{" "}
-                    {analysis?.offPlatformCallMinutes ?? 0} off-platform call minutes have been
-                    recorded against this worker.
-                  </p>
-                  <p>
-                    {analysis?.transactionHistoryExportCount ?? 0} transaction-history exports,{" "}
-                    {analysis?.walletTransferAttempts ?? 0} wallet transfer attempts, and{" "}
-                    {analysis?.unapprovedPayoutCount ?? 0} unapproved payout actions remain active
-                    board-review concerns.
-                  </p>
+                <h3><span className="material-symbols-outlined">route</span> Leak Path Indicators</h3>
+                <div className="signal-tile-grid">
+                  {leakIndicators.map((item) => (
+                    <div className="signal-tile" key={item.label}>
+                      <span className="material-symbols-outlined">{item.icon}</span>
+                      <strong>{item.value}</strong>
+                      <small>{item.label}</small>
+                      <em>{item.note}</em>
+                    </div>
+                  ))}
                 </div>
               </article>
 
               <article className="case-review__list-card">
-                <h3>Board Recommendation</h3>
+                <h3><span className="material-symbols-outlined">rule</span> Board Recommendation</h3>
                 <div className="case-review__stack">
                   <p>
                     {analysis?.boardRecommendation ??
@@ -199,8 +225,13 @@ export default function FeaturesPage() {
           </div>
           <div className="surveillance-grid">
             <article className="surveillance-card">
-              <span className="eyebrow eyebrow--dark">Communication Surveillance</span>
-              <h3>Email, chat, and call inspection</h3>
+              <div className="visual-card-heading">
+                <span className="visual-icon material-symbols-outlined">alternate_email</span>
+                <div>
+                  <span className="eyebrow eyebrow--dark">Communication Surveillance</span>
+                  <h3>Email, chat, and call inspection</h3>
+                </div>
+              </div>
               <div className="surveillance-card__metric-row">
                 <span>External emails</span>
                 <strong>{analysis?.externalEmailCount ?? 0}</strong>
@@ -214,14 +245,18 @@ export default function FeaturesPage() {
                 <strong>{analysis?.offPlatformCallMinutes ?? 0}</strong>
               </div>
               <p className="surveillance-card__note">
-                The system correlates outbound recipients, suspicious attachments, off-platform
-                calls, and hostile communication drift to identify possible insider leakage.
+                Emails, chats, calls, and suspicious recipients in one view.
               </p>
             </article>
 
             <article className="surveillance-card">
-              <span className="eyebrow eyebrow--dark">Financial Monitoring</span>
-              <h3>Transaction and wallet leak control</h3>
+              <div className="visual-card-heading">
+                <span className="visual-icon material-symbols-outlined">account_balance_wallet</span>
+                <div>
+                  <span className="eyebrow eyebrow--dark">Financial Monitoring</span>
+                  <h3>Transaction and wallet leak control</h3>
+                </div>
+              </div>
               <div className="surveillance-card__metric-row">
                 <span>History exports</span>
                 <strong>{analysis?.transactionHistoryExportCount ?? 0}</strong>
@@ -235,14 +270,18 @@ export default function FeaturesPage() {
                 <strong>{currencyFormatter.format(analysis?.walletTransferAmountUsd ?? 0)}</strong>
               </div>
               <p className="surveillance-card__note">
-                Transaction-history exports, payout anomalies, and wallet movement exceptions are
-                treated as possible insider transfer pathways and surfaced to oversight.
+                Exports, payouts, and wallet movement surfaced for review.
               </p>
             </article>
 
             <article className="surveillance-card surveillance-card--alert">
-              <span className="eyebrow eyebrow--dark">Board Advisory</span>
-              <h3>Recommended oversight action</h3>
+              <div className="visual-card-heading">
+                <span className="visual-icon material-symbols-outlined">verified_user</span>
+                <div>
+                  <span className="eyebrow eyebrow--dark">Board Advisory</span>
+                  <h3>Recommended oversight action</h3>
+                </div>
+              </div>
               <ul className="surveillance-card__list">
                 {(analysis?.watchVectors ?? []).map((vector) => (
                   <li key={vector}>{vector}</li>
@@ -266,10 +305,7 @@ export default function FeaturesPage() {
             <span className="eyebrow">The Hub Of Global Intelligence</span>
             <h2>From fragmented evidence to one dependable operating picture.</h2>
             <p>
-              The current Nexora dataset tracks {metrics.totalEmployees} specialists,
-              correlates {metrics.unusualActivityAlerts} unusual communication, transfer,
-              and finance alerts, and continuously reprioritizes high-sensitivity monitoring
-              paths for the board and security teams.
+              {metrics.totalEmployees} specialists, {metrics.unusualActivityAlerts} active anomalies, one operating view.
             </p>
             <div className="metric-pair-grid">
               <article>
@@ -289,19 +325,19 @@ export default function FeaturesPage() {
         <div className="container-shell feature-stack">
           <article className="feature-row">
             <div className="feature-row__copy">
-              <span className="icon-pill">
-                <span className="material-symbols-outlined">analytics</span>
-              </span>
-              <h2>Advanced data modeling</h2>
+              <div className="visual-card-heading visual-card-heading--feature">
+                <span className="icon-pill">
+                  <span className="material-symbols-outlined">analytics</span>
+                </span>
+                <h2>Advanced data modeling</h2>
+              </div>
               <p>
-                Current scoring combines anomaly intensity, policy exceptions, suspicious
-                emails, chat disclosures, call behavior, transaction exports, and transfer
-                anomalies into one explainable model instead of a black-box score.
+                Many signals become one explainable risk score.
               </p>
               <ul className="bullet-list">
-                <li>Composite score blends behavioral and communication evidence.</li>
-                <li>Each employee profile carries explicit flagged reasons for review.</li>
-                <li>Finance and wallet movement signals feed the same oversight engine.</li>
+                <li><span className="material-symbols-outlined">psychology</span> Behavior</li>
+                <li><span className="material-symbols-outlined">forum</span> Communication</li>
+                <li><span className="material-symbols-outlined">payments</span> Finance</li>
               </ul>
             </div>
             <div className="feature-row__media">
@@ -311,17 +347,15 @@ export default function FeaturesPage() {
 
           <article className="feature-row feature-row--reverse feature-row--soft">
             <div className="feature-row__copy">
-              <span className="icon-pill">
-                <span className="material-symbols-outlined">query_stats</span>
-              </span>
-              <h2>Predictive analytics</h2>
+              <div className="visual-card-heading visual-card-heading--feature">
+                <span className="icon-pill">
+                  <span className="material-symbols-outlined">query_stats</span>
+                </span>
+                <h2>Predictive analytics</h2>
+              </div>
               <p>
-                The selected case for{" "}
-                <strong>{employee?.name ?? "Gbadebo Faidat Adeola"}</strong> currently reflects{" "}
-                <strong>{analysis?.afterHoursAccessCount ?? 0}</strong> off-hours sessions
-                and <strong>{analysis?.policyViolationCount ?? 0}</strong> policy exceptions,
-                plus <strong>{analysis?.externalEmailCount ?? 0}</strong> suspicious external
-                email attempts, giving decision-makers a forward-looking intervention path.
+                {employee?.name ?? "Selected worker"}: {analysis?.afterHoursAccessCount ?? 0} off-hours sessions,{" "}
+                {analysis?.policyViolationCount ?? 0} policy exceptions, {analysis?.externalEmailCount ?? 0} external emails.
               </p>
               <div className="case-study-card">
                 <span className="eyebrow eyebrow--dark">Current Case Study</span>
@@ -337,14 +371,14 @@ export default function FeaturesPage() {
 
           <article className="feature-row">
             <div className="feature-row__copy">
-              <span className="icon-pill">
-                <span className="material-symbols-outlined">satellite_alt</span>
-              </span>
-              <h2>Satellite intelligence architecture</h2>
+              <div className="visual-card-heading visual-card-heading--feature">
+                <span className="icon-pill">
+                  <span className="material-symbols-outlined">satellite_alt</span>
+                </span>
+                <h2>Satellite intelligence architecture</h2>
+              </div>
               <p>
-                The experience now reads like a serious corporate product while remaining
-                grounded in the same underlying monitoring logic for worker leakage,
-                transaction misuse, and rival-company exfiltration risk.
+                Corporate interface, same monitoring logic, clearer signal reading.
               </p>
               <div className="mini-spec-grid">
                 <article>
@@ -369,14 +403,11 @@ export default function FeaturesPage() {
           <div className="section-heading section-heading--center section-heading--light">
             <span className="eyebrow">System Specifications</span>
             <h2>Enterprise-grade structure with explainable decision signals.</h2>
-            <p>
-              These cards now present real values from the current mock intelligence model
-              instead of generic placeholder metrics.
-            </p>
+            <p>Real values from the current mock intelligence model.</p>
           </div>
           <div className="specs-grid">
             <article className="spec-card">
-              <h3>Processing Logic</h3>
+              <h3><span className="material-symbols-outlined">memory</span> Processing Logic</h3>
               <dl>
                 <div>
                   <dt>High-risk profiles</dt>
@@ -393,7 +424,7 @@ export default function FeaturesPage() {
               </dl>
             </article>
             <article className="spec-card">
-              <h3>Connectivity</h3>
+              <h3><span className="material-symbols-outlined">lan</span> Connectivity</h3>
               <dl>
                 <div>
                   <dt>Departments tracked</dt>
@@ -410,7 +441,7 @@ export default function FeaturesPage() {
               </dl>
             </article>
             <article className="spec-card">
-              <h3>Availability</h3>
+              <h3><span className="material-symbols-outlined">verified</span> Availability</h3>
               <dl>
                 <div>
                   <dt>Top analysts surfaced</dt>
@@ -434,7 +465,7 @@ export default function FeaturesPage() {
           <div className="container-shell cta-band__inner cta-band__inner--stacked">
           <div>
             <span className="eyebrow eyebrow--dark">Experience Nexora Technologies</span>
-            <h2>Use the current model as the foundation for a stronger executive-facing platform.</h2>
+            <h2>Visual signals for faster executive review.</h2>
           </div>
           <Link className="button button--dark" href="/contact">
             Request Private Access

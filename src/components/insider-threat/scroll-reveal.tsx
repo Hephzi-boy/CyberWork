@@ -6,7 +6,6 @@ import { usePathname } from "next/navigation";
 const REVEAL_SELECTORS = [
   ".hero-banner__copy",
   ".hero-banner__panel",
-  ".flag-panel",
   ".stats-ribbon__grid article",
   ".section-heading",
   ".capability-grid__featured",

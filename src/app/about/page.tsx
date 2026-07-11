@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 
-import { ManualFlagControl } from "@/components/insider-threat/manual-flag-control";
 import { siteImages } from "@/data/siteImages";
 import { useAppSelector } from "@/store/hooks";
 import { selectDashboardMetrics, selectOverviewEmployees } from "@/store/slices/analysisSlice";
@@ -35,21 +34,25 @@ const projects = [
     title: "Project Halo",
     owner: "Gbadebo Faidat Adeola",
     text: "Security operations coverage for high-signal access review and escalation readiness.",
+    icon: "shield",
   },
   {
     title: "Project Meridian",
     owner: "Efunsanwo Abisola Deborah",
     text: "Finance visibility focused on approvals, transfers, and transaction integrity.",
+    icon: "account_balance",
   },
   {
     title: "Project Pulse",
     owner: "Salihu Aishat Chioma",
     text: "Engineering telemetry for release pressure, response timing, and workflow drift.",
+    icon: "monitor_heart",
   },
   {
     title: "Project Atlas",
     owner: "Oredugba Oluwadamilare Elijah",
     text: "People and governance oversight built around policy drift and review health.",
+    icon: "groups",
   },
 ];
 
@@ -68,20 +71,8 @@ export default function AboutPage() {
           <div className="hero-banner__copy hero-banner__copy--wide">
             <span className="eyebrow">About Nexora Technologies</span>
             <h1>Precision is the discipline. Trusted intelligence is the outcome.</h1>
-            <p>
-              Nexora Technologies brings research discipline, behavioral analytics,
-              and operational design into one coherent company story.
-            </p>
+            <p>Behavioral analytics, finance signals, and human review in one company system.</p>
           </div>
-        </div>
-      </section>
-
-      <section className="section-shell section-shell--tight">
-        <div className="container-shell">
-          <ManualFlagControl
-            title="Escalate a manual concern"
-            description="Operational teams can raise a manual leak concern from this page without disrupting the automatic monitoring rules already in place."
-          />
         </div>
       </section>
 
@@ -91,11 +82,13 @@ export default function AboutPage() {
             <span className="eyebrow">Our Mission</span>
             <h2>Turn difficult organizational signals into responsible, reviewable action.</h2>
             <p>
-              The mission of the platform is to reduce ambiguity at critical moments. The
-              current system tracks {metrics.totalEmployees} active profiles, surfaces{" "}
-              {metrics.highRiskEmployees} high-priority cases, and keeps human review at
-              the center of interpretation.
+              {metrics.totalEmployees} profiles tracked. {metrics.highRiskEmployees} high-priority cases surfaced.
             </p>
+            <div className="visual-chip-row">
+              <span className="visual-chip"><span className="material-symbols-outlined">visibility</span> Reviewable</span>
+              <span className="visual-chip"><span className="material-symbols-outlined">policy</span> Governed</span>
+              <span className="visual-chip"><span className="material-symbols-outlined">human_male</span> Human-led</span>
+            </div>
             <div className="metric-pair-grid">
               <article>
                 <strong>{metrics.averageRiskScore}</strong>
@@ -118,7 +111,7 @@ export default function AboutPage() {
           <div className="section-heading">
             <div>
               <span className="eyebrow">Leadership And Talent</span>
-              <h2>The current people dataset now reads like a credible company roster.</h2>
+              <h2>People, roles, and risk context at a glance.</h2>
             </div>
             <Link className="text-link" href="/contact">
               Start a conversation
@@ -132,7 +125,10 @@ export default function AboutPage() {
                   <img alt="" src={index % 2 === 0 ? siteImages.teamOne : siteImages.teamTwo} />
                 </div>
                 <div className="person-card__body">
-                  <h3>{person.employee.name}</h3>
+                  <div className="visual-card-heading visual-card-heading--compact">
+                    <span className="visual-icon visual-icon--small material-symbols-outlined">badge</span>
+                    <h3>{person.employee.name}</h3>
+                  </div>
                   <p>
                     {person.employee.role} / {person.employee.department}
                   </p>
@@ -149,14 +145,16 @@ export default function AboutPage() {
           <div className="section-heading">
             <div>
               <span className="eyebrow">Projects In Motion</span>
-              <h2>The requested team names now also appear as active project ownership.</h2>
+              <h2>Project ownership shown with clear visual signals.</h2>
             </div>
           </div>
 
           <div className="insights-grid">
             {projects.map((project) => (
               <article key={project.title} className="insight-article">
-                <span className="insight-article__meta">Flagship program</span>
+                <span className="insight-article__meta">
+                  <span className="material-symbols-outlined">{project.icon}</span> Flagship program
+                </span>
                 <h3>{project.title}</h3>
                 <p>{project.text}</p>
                 <div className="insight-article__footer">
@@ -173,7 +171,7 @@ export default function AboutPage() {
         <div className="container-shell">
           <div className="section-heading section-heading--center">
             <span className="eyebrow">A Legacy Of Breakthroughs</span>
-            <h2>Structured like a credible company platform, not just a prototype interface.</h2>
+            <h2>From research system to company-ready platform.</h2>
           </div>
           <div className="timeline-stack">
             {milestones.map((milestone, index) => (
@@ -183,7 +181,10 @@ export default function AboutPage() {
               >
                 <div className="timeline-item__year">{milestone.year}</div>
                 <div className="timeline-item__body">
-                  <h3>{milestone.title}</h3>
+                  <div className="visual-card-heading visual-card-heading--compact">
+                    <span className="visual-icon visual-icon--small material-symbols-outlined">military_tech</span>
+                    <h3>{milestone.title}</h3>
+                  </div>
                   <p>{milestone.text}</p>
                 </div>
               </article>
@@ -196,7 +197,7 @@ export default function AboutPage() {
         <div className="container-shell cta-band__inner">
           <div>
             <span className="eyebrow">Next Step</span>
-            <h2>Position Nexora Technologies like an enterprise product teams can trust immediately.</h2>
+            <h2>Enterprise product signals, easier to understand.</h2>
           </div>
           <Link className="button button--primary" href="/contact">
             Partner With Us

@@ -88,13 +88,3 @@ export type ThreatAnalysisResult = {
   indicators: ThreatIndicator[];
   recommendations: string[];
 };
-
-export type ManualLeakAlert = {
-  id: string;
-  employeeId: string;
-  title: string;
-  detail: string;
-  timestamp: string;
-  severity: "high";
-  source: "manual";
-};

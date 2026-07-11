@@ -4,7 +4,6 @@ import { mockBehaviorSignals, mockSentimentRecords, mockSuspiciousEvents } from 
 import { RootState } from "@/store";
 import {
   BehaviorSignal,
-  ManualLeakAlert,
   RiskLevel,
   SentimentRecord,
   ThreatAnalysisResult,
@@ -383,9 +382,8 @@ export const selectPotentialLeakAlerts = createSelector(
     selectEmployees,
     selectResultsByEmployeeId,
     selectBehaviorSignals,
-    (state: RootState) => state.ui.manualLeakAlerts,
   ],
-  (eventFeed, employees, resultsByEmployeeId, behaviorSignals, manualLeakAlerts) => {
+  (eventFeed, employees, resultsByEmployeeId, behaviorSignals) => {
     const automaticAlerts = behaviorSignals
       .map((signal) => {
         const employee = employees.find((item) => item.id === signal.employeeId) ?? null;
@@ -442,31 +440,7 @@ export const selectPotentialLeakAlerts = createSelector(
         ): item is NonNullable<typeof item> => Boolean(item),
       );
 
-    const manualAlertsDecorated = manualLeakAlerts
-      .map((alert: ManualLeakAlert) => {
-        const employee = employees.find((item) => item.id === alert.employeeId) ?? null;
-        const analysis = resultsByEmployeeId[alert.employeeId] ?? null;
-
-        return {
-          ...alert,
-          employee,
-          analysis,
-        };
-      })
-      .filter(
-        (
-          item,
-        ): item is typeof item & {
-          employee: NonNullable<typeof item.employee>;
-          analysis: NonNullable<typeof item.analysis>;
-        } => Boolean(item.employee && item.analysis),
-      );
-
-    return [...manualAlertsDecorated, ...automaticAlerts].sort((left, right) => {
-      if (left.source !== right.source) {
-        return left.source === "manual" ? -1 : 1;
-      }
-
+    return automaticAlerts.sort((left, right) => {
       if (right.analysis.finalRiskScore !== left.analysis.finalRiskScore) {
         return right.analysis.finalRiskScore - left.analysis.finalRiskScore;
       }
